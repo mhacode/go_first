@@ -1,5 +1,3 @@
-# go_first
-
 
 # Create a temp directory
 
@@ -20,7 +18,7 @@ https://golang.org/dl/
 
 ~/temp$ clear
 
-## Move file from temp directory to local directory
+## Move file from temp directory to local directory 
 ~/tmp$ sudo mv go /usr/local
 
 ~/tmp$ rm -rf go
@@ -37,7 +35,7 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 ```
-## Check go version again
+## Check go verion again
 
 go version
 
