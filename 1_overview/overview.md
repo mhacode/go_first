@@ -1716,3 +1716,90 @@ Welcome to init() function
 Hello! init() function
 Welcome to main() function
 ```
+
+# Function Returning Multiple Values in Go Language
+```go
+func function_name(parameter_list)(return_type_list){
+     // code...
+}
+```
+```go
+
+// Go program to illustrate how a
+// function return multiple values
+package main
+  
+import "fmt"
+  
+// myfunc return 3 values of int type
+func myfunc(p, q int)(int, int, int ){
+    return p - q, p * q, p + q 
+}
+  
+// Main Method
+func main() {
+      
+    // The return values are assigned into 
+    // three different variables
+   var myvar1, myvar2, myvar3 = myfunc(4, 2)
+     
+   // Display the values
+   fmt.Printf("Result is: %d", myvar1 )
+   fmt.Printf("\nResult is: %d", myvar2)
+   fmt.Printf("\nResult is: %d", myvar3)
+}
+```
+
+```
+Output:
+Result is: 2
+Result is: 8
+Result is: 6
+
+```
+## Giving Name to the Return Values
+
+```go
+func function_name(para1, para2 int)(name1 int, name2 int){
+    // code...
+}
+
+or
+
+func function_name(para1, para2 int)(name1, name2 int){
+   // code...
+}
+```
+```go
+// Go program to illustrate how to
+// give names to the return values
+package main
+  
+import "fmt"
+  
+// myfunc return 2 values of int type
+// here, the return value name 
+// is rectangle and square
+func myfunc(p, q int)( rectangle int, square int ){
+    rectangle = p*q
+    square = p*p
+    return  
+}
+  
+func main() {
+      
+    // The return values are assigned into 
+    // two different variables
+   var area1, area2 = myfunc(2, 4)
+     
+   // Display the values
+   fmt.Printf("Area of the rectangle is: %d", area1 )
+   fmt.Printf("\nArea of the square is: %d", area2)
+     
+}
+```
+```
+Area of the rectangle is: 8
+Area of the square is: 4
+
+```
