@@ -1356,3 +1356,363 @@ Output:
 The value of geek1 and geek2 is : 78 200
 The value of geek3 and geek2 is : 456 200
 ```
+
+# Functions and Methods in Go
+Functions are generally the block of codes or statements in a program
+
+## Function Declaration
+
+Function declaration means a way to construct a function.
+
+Syntax:
+
+```go
+
+func function_name(Parameter-list)(Return_type){
+// function body.....
+}
+```
+```go
+func add(a,b int)int{
+	Sum := a + b
+	return Sum
+}
+```
+```go
+// Go program to illustrate the
+// use of function
+package main
+import "fmt"
+
+// area() is used to find the
+// area of the rectangle
+// area() function two parameters,
+// i.e, length and width
+func area(length, width int)int{
+
+	Ar := length* width
+	return Ar
+}
+
+// Main function
+func main() {
+
+	// Display the area of the rectangle
+	// with method calling
+	fmt.Printf("Area of rectangle is : %d", area(12, 10))
+}
+```
+Area of rectangle is : 120
+
+## Function Arguments
+1. The parameters passed to a function are called actual parameters, 
+2. whereas the parameters received by a function are called formal parameters.
+
+### Call by value:
+Values of actual parameters are copied to function’s formal parameters and 
+the two types of parameters are stored in different memory locations. 
+So any changes made inside functions are not reflected in actual parameters of the caller.
+
+```go
+// Go Program to illustrate the concept of call by value
+package main
+
+import "fmt"
+
+// function which swap values
+func swap(a, b int) int {
+	var temp int
+	temp = a
+	a = b
+	b = temp
+	fmt.Println(a)
+	fmt.Println(b)
+	return temp
+	
+}
+
+// Main function
+func main() {
+	var p int = 10
+	var q int = 20
+	fmt.Printf("p = %d and q = %d", p, q)
+
+	swap(p, q)
+	fmt.Printf("\np = %d and q = %d", p, q)
+}
+```
+```
+p = 10 and q = 20
+p = 10 and q = 20
+
+```
+## Call by reference: 
+Both the actual and formal parameters refer to the same locations, 
+so any changes made inside the function are actually reflected in actual parameters of the caller.
+```go
+// Go program to illustrate the
+// concept of the call by reference
+package main
+
+import "fmt"
+
+// function which swap values
+func swaap(a, b *int)int{
+	var o int
+	o = *a
+	*a = *b
+	*b = o
+
+	return o
+}
+
+// Main function
+func main() {
+
+	var p int = 10
+	var q int = 20
+	fmt.Printf("p = %d and q = %d", p, q)
+
+	// call by reference
+	swaap(&p, &q)
+	fmt.Printf("\np = %d and q = %d",p, q)
+}
+```
+
+```
+p = 10 and q = 20
+p = 20 and q = 10
+```
+# Variadic Functions in Go
+1. The function that called with the varying number of arguments is known as variadic function.
+2. Or in other words, a user is allowed to pass zero or more arguments in the variadic function.
+3. fmt.Printf is the example of the variadic function,
+4. it required one fixed argument at the starting after that it can accept any number of arguments.
+
+### Important Points:
+
+In the declaration of the variadic function, the type of the last parameter is preceded by an ellipsis, i.e, (…). It indicates that the function can be called at any number of parameters of this type.
+Syntax:
+```
+function function_name(para1, para2...type)type{
+// code...
+}
+```
+Inside the function …type behaves like a slice. For example, suppose we have a function signature, i.e, add( b…int)int, now the a parameter of type[]int.
+
+You can also pass an existing slice in a variadic function. To do this, we pass a slice of the complete array to the function as shown in Example 2 below.
+
+When you do not pass any argument in the variadic function, then the silce inside the function is nil.
+
+The variadic functions are generally used for string formatting.
+
+You can also pass multiple slice in the variadic function.
+
+You can not use variadic parameter as a return value, but you can return it as a slice.
+
+```go
+// Go program to illustrate the
+// concept of variadic function
+package main
+  
+import(
+    "fmt"
+    "strings"
+)
+  
+// Variadic function to join strings
+func joinstr(element...string)string{
+    return strings.Join(element, "-")
+}
+  
+func main() {
+    
+  // zero argument
+   fmt.Println(joinstr())
+     
+   // multiple arguments
+   fmt.Println(joinstr("GEEK", "GFG"))
+   fmt.Println(joinstr("Geeks", "for", "Geeks"))
+   fmt.Println(joinstr("G", "E", "E", "k", "S"))
+     
+}
+```
+
+```
+GEEK-GFG
+Geeks-for-Geeks
+G-E-E-k-S
+```
+## When we use a Variadic function:
+
+1. Variadic function is used when you want to pass a slice in a function.
+2. Variadic function is used when we don’t know the quantity of parameters.
+3. When you use variadic function in your program, it increase the readability of your program.
+
+## Anonymous function in Go Language
+
+1. An anonymous function is a function which doesn’t contain any name. 
+2. It is useful when you want to create an inline function.
+3. An anonymous function is also known as function literal.
+
+###  Syntax:
+
+```go
+
+func(parameter_list)(return_type){
+// code..
+
+// Use return statement if return_type are given
+// if return_type is not given, then do not 
+// use return statement
+return
+}()
+```
+```go
+// Go program to illustrate how
+// to create an anonymous function
+package main
+
+import "fmt"
+
+func main() {
+
+    // Anonymous function
+func(){
+
+      fmt.Println("Welcome! to GeeksforGeeks")
+}()
+
+}
+```
+```
+Output:
+
+Welcome! to GeeksforGeeks
+```
+
+1. In Go language, you are allowed to assign an anonymous function to a variable. When you assign a function to a variable
+```go
+// Go program to illustrate
+// use of an anonymous function
+package main
+  
+import "fmt"
+  
+func main() {
+      
+    // Assigning an anonymous 
+   // function to a variable
+   value := func(){
+      fmt.Println("Welcome! to GeeksforGeeks")
+  }
+  value()
+    
+}
+```
+
+```
+Welcome! to GeeksforGeeks
+```
+```go
+// Go program to illustrate
+// use of an anonymous function
+package main
+
+import "fmt"
+
+func main() {
+
+	// Assigning an anonymous
+	// function to a variable
+	value := func() {
+		fmt.Println("Welcome! to GeeksforGeeks")
+	}
+	value()
+
+}
+Welcome! to GeeksforGeeks
+```
+```go
+// Go program to pass an anonymous 
+// function as an argument into 
+// other function
+package main
+  
+import "fmt"
+  
+  
+  // Passing anonymous function
+ // as an argument 
+ func GFG(i func(p, q string)string){
+     fmt.Println(i ("Geeks", "for"))
+       
+ }
+    
+func main() {
+    value:= func(p, q string) string{
+        return p + q + "Geeks"
+    }
+    GFG(value)
+}
+```
+// GeeksforGeeks
+
+```go
+package main
+
+import "fmt"
+
+func GFg() func(i, j string) string {
+	myf := func(i, j string) string {
+		return i + j + "GeeksforGeeks"
+	}
+	return myf
+}
+
+func main() {
+	val := GFg()
+	fmt.Println(val("Welcome ", "to "))
+}
+ // Welcome to GeeksForGeeks
+```
+## main and init function in Golang
+
+init() =  this function is called when the package is initialized.
+1. you are allowed to create multiple init() function in the same program and they execute in the order they are created.
+2. but always remember to init() function is executed before the main() function call
+
+**The main purpose of the init() function is to initialize the global variables that cannot be initialized in the global context.**
+
+```go
+
+// Go program to illustrate the
+// concept of init() function
+  
+// Declaration of the main package
+package main
+  
+// Importing package
+import "fmt"
+  
+// Multiple init() function
+func init() {
+    fmt.Println("Welcome to init() function")
+}
+  
+func init() {
+    fmt.Println("Hello! init() function")
+}
+  
+// Main function
+func main() {
+    fmt.Println("Welcome to main() function")
+}
+```
+```
+Output:
+
+Welcome to init() function
+Hello! init() function
+Welcome to main() function
+```
