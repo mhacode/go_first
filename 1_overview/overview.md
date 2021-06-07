@@ -1798,8 +1798,374 @@ func main() {
      
 }
 ```
+
 ```
 Area of the rectangle is: 8
 Area of the square is: 4
+
+```
+## What is Blank Identifier(underscore) in Golang?
+
+Unused variables are those variables which are defined by the user throughout the program but he/she never make the use of these variables.
+
+```go
+// Golang program to show the compiler
+// throws an error if a variable is
+// declared but not used
+  
+package main
+  
+import "fmt"
+  
+// Main function
+func main() {
+  
+    // calling the function
+    // function returns two values which are
+    // assigned to mul and div identifier
+    mul, div := mul_div(105, 7)
+  
+    // only using the mul variable
+    // compiler will give an error
+    fmt.Println("105 x 7 = ", mul)
+}
+  
+// function returning two 
+// values of integer type
+func mul_div(n1 int, n2 int) (int, int) {
+  
+    // returning the values
+    return n1 * n2, n1 / n2
+}
+```
+```
+./prog.go:15:7: div declared and not used
+```
+
+Example 2: Let’s make the use of Blank identifier to correct the above program.
+
+```go
+// Golang program to the use of Blank identifier
+  
+package main
+  
+import "fmt"
+  
+// Main function
+func main() {
+  
+    // calling the function
+    // function returns two values which are
+    // assigned to mul and blank identifier
+    mul, _ := mul_div(105, 7)
+  
+    // only using the mul variable
+    fmt.Println("105 x 7 = ", mul)
+}
+  
+// function returning two 
+// values of integer type
+func mul_div(n1 int, n2 int) (int, int) {
+  
+    // returning the values
+    return n1 * n2, n1 / n2
+}
+```
+# Defer Keyword in Golang
+
+1. defer statements delay the execution of the function or method or an anonymous method until the nearby functions returns.
+2. defer function or method call arguments evaluate instantly, but they execute until the nearby functions returns.
+
+```go
+// Go program to illustrate the
+// concept of the defer statement
+package main
+
+import "fmt"
+
+// Functions
+func mul(a1, a2 int) int {
+
+	res := a1 * a2
+	fmt.Println("Result: ", res)
+	return 0
+}
+
+func show() {
+	fmt.Println("Hello!, GeeksforGeeks")
+}
+
+// Main function
+func main() {
+
+	// Calling mul() function
+	// Here mul function behaves
+	// like a normal function
+	mul(23, 45)
+
+	// Calling mul()function
+	// Using defer keyword
+	// Here the mul() function
+	// is defer function
+	defer mul(23, 56)
+
+	defer mul(2, 3)
+
+	defer mul(3, 4)
+
+	// Calling show() function
+	show()
+}
+```
+```
+Result:  1035
+Hello!, GeeksforGeeks
+Result:  12
+Result:  6
+Result:  1288
+```
+
+## Methods in Golang
+
+ 1. The method contains a receiver argument in it. 
+ 2. With the help of the receiver argument, the method can access the properties of the receiver. 
+ 3. Here, the receiver can be of struct type or non-struct type. 
+ 4. When you create a method in your code the receiver and receiver type must present in the same package. 
+ 5. And you are not allowed to create a method in which the receiver type is already defined in another package including inbuilt type like int, string, etc. 
+ 6. If you try to do so, then the compiler will give an error.
+```go
+// Go program to illustrate the
+// method with struct type receiver
+package main
+
+import "fmt"
+
+// Author structure
+type author struct {
+	name	 string
+	branch string
+	particles int
+	salary int
+}
+
+// Method with a receiver
+// of author type
+func (a author) show() {
+
+	fmt.Println("Author's Name: ", a.name)
+	fmt.Println("Branch Name: ", a.branch)
+	fmt.Println("Published articles: ", a.particles)
+	fmt.Println("Salary: ", a.salary)
+}
+
+// Main function
+func main() {
+
+	// Initializing the values
+	// of the author structure
+	res := author{
+		name:	 "Sona",
+		branch: "CSE",
+		particles: 203,
+		salary: 34000,
+	}
+
+	// Calling the method
+	res.show()
+}
+```
+
+```
+Author's Name:  Sona
+Branch Name:  CSE
+Published articles:  203
+Salary:  34000
+```
+
+## Method with Non-Struct Type Receiver
+```go
+
+// Go program to illustrate the method
+// with non-struct type receiver
+package main
+  
+import "fmt"
+  
+// Type definition
+type data int
+  
+// Defining a method with
+// non-struct type receiver
+func (d1 data) multiply(d2 data) data {
+    return d1 * d2
+}
+  
+/*
+// if you try to run this code,
+// then compiler will throw an error
+func(d1 int)multiply(d2 int)int{
+return d1 * d2
+}
+*/
+  
+// Main function
+func main() {
+    value1 := data(23)
+    value2 := data(20)
+    res := value1.multiply(value2)
+    fmt.Println("Final result: ", res)
+}
+```
+```
+Output:
+
+Final result:  460
+```
+## Methods with Pointer Receiver
+```go
+// Go program to illustrate pointer receiver
+package main
+
+import "fmt"
+
+// Author structure
+type author struct {
+	name	 string
+	branch string
+	particles int
+}
+
+// Method with a receiver of author type
+func (a *author) show(abranch string) {
+	(*a).branch = abranch
+}
+
+// Main function
+func main() {
+
+	// Initializing the values
+	// of the author structure
+	res := author{
+		name: "Sona",
+		branch: "CSE",
+	}
+
+	fmt.Println("Author's name: ", res.name)
+	fmt.Println("Branch Name(Before): ", res.branch)
+
+	// Creating a pointer
+	p := &res
+
+	// Calling the show method
+	p.show("ECE")
+	fmt.Println("Author's name: ", res.name)
+	fmt.Println("Branch Name(After): ", res.branch)
+}
+```
+```
+Author's name:  Sona
+Branch Name(Before):  CSE
+Author's name:  Sona
+Branch Name(After):  ECE
+
+```
+## Method Can Accept both Pointer and Value
+```go
+// Go program to illustrate how the
+// method can accept pointer and value
+
+package main
+
+import "fmt"
+
+// Author structure
+type author struct {
+	name string
+	branch string
+}
+
+// Method with a pointer
+// receiver of author type
+func (a *author) show_1(abranch string) {
+	(*a).branch = abranch
+}
+
+// Method with a value
+// receiver of author type
+func (a author) show_2() {
+
+	a.name = "Gourav"
+	fmt.Println("Author's name(Before) : ", a.name)
+}
+
+// Main function
+func main() {
+
+	// Initializing the values
+	// of the author structure
+	res := author{
+		name: "Sona",
+		branch: "CSE",
+	}
+
+	fmt.Println("Branch Name(Before): ", res.branch)
+
+	// Calling the show_1 method
+	// (pointer method) with value
+	res.show_1("ECE")
+	fmt.Println("Branch Name(After): ", res.branch)
+
+	// Calling the show_2 method
+	// (value method) with a pointer
+	(&res).show_2()
+	fmt.Println("Author's name(After): ", res.name)
+}
+```
+```
+Branch Name(Before):  CSE
+Branch Name(After):  ECE
+Author's name(Before) :  Gourav
+Author's name(After):  Sona
+```
+## Methods With Same Name in Golang
+```go
+// Go program to illustrate how to
+// create the same name methods
+// with non-struct type receivers
+package main
+
+import "fmt"
+
+type value_1 string
+type value_2 int
+
+// Creating same name function with
+// different types of non-struct receivers
+func (a value_1) display() value_1 {
+
+	return a + "forGeeks"
+}
+
+func (p value_2) display() value_2 {
+
+	return p + 298
+}
+
+// Main function
+func main() {
+
+	// Initializing the values
+	res1 := value_1("Geeks")
+	res2 := value_2(234)
+
+	// Display the results
+	fmt.Println("Result 1: ", res1.display())
+	fmt.Println("Result 2: ", res2.display())
+}
+```
+
+```
+Result 1:  GeeksforGeeks
+Result 2: 532
 
 ```
