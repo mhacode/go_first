@@ -2169,3 +2169,245 @@ Result 1:  GeeksforGeeks
 Result 2: 532
 
 ```
+
+# Structures in Golang
+```go
+// Golang program to show how to
+// declare and define the struct
+
+package main
+
+import "fmt"
+
+// Defining a struct type
+type Address struct {
+	Name string
+	city string
+	Pincode int
+}
+
+func main() {
+
+	// Declaring a variable of a `struct` type
+	// All the struct fields are initialized
+	// with their zero value
+	var a Address
+	fmt.Println(a)
+
+	// Declaring and initializing a
+	// struct using a struct literal
+	a1 := Address{"Akshay", "Dehradun", 3623572}
+
+	fmt.Println("Address1: ", a1)
+
+	// Naming fields while
+	// initializing a struct
+	a2 := Address{Name: "Anikaa", city: "Ballia",
+								Pincode: 277001}
+
+	fmt.Println("Address2: ", a2)
+
+	// Uninitialized fields are set to
+	// their corresponding zero-value
+	a3 := Address{Name: "Delhi"}
+	fmt.Println("Address3: ", a3)
+}
+```
+```
+{  0}
+Address1:  {Akshay Dehradun 3623572}
+Address2:  {Anikaa Ballia 277001}
+Address3:  {Delhi  0}
+```
+
+## Nested Structures
+```go
+// Golang program to illustrate
+// the nested structure
+package main
+
+import "fmt"
+
+// Creating structure
+type Student struct {
+	name string
+	branch string
+	year int
+}
+
+// Creating nested structure
+type Teacher struct {
+	name string
+	subject string
+	exp	 int
+	details Student
+}
+
+func main() {
+
+	// Initializing the fields
+	// of the structure
+	result := Teacher{
+		name: "Suman",
+		subject: "Java",
+		exp:	 5,
+		details: Student{"Bongo", "CSE", 2},
+	}
+
+	// Display the values
+	fmt.Println("Details of the Teacher")
+	fmt.Println("Teacher's name: ", result.name)
+	fmt.Println("Subject: ", result.subject)
+	fmt.Println("Experience: ", result.exp)
+
+	fmt.Println("\nDetails of Student")
+	fmt.Println("Student's name: ", result.details.name)
+	fmt.Println("Student's branch name: ", result.details.branch)
+	fmt.Println("Year: ", result.details.year)
+}
+```
+```
+Details of the Teacher
+Teacher's name:  Suman
+Subject:  Java
+Experience:  5
+
+Details of Student
+Student's name:  Bongo
+Student's branch name:  CSE
+Year:  2
+
+```
+
+## Promoted Fields in Golang Structure
+```go
+// Go program to illustrate the
+// concept of the promoted fields
+package main
+
+import "fmt"
+
+// Structure
+type details struct {
+
+	// Fields of the
+	// details structure
+	name string
+	age int
+	gender string
+}
+
+// Nested structure
+type student struct {
+	branch string
+	year int
+	details
+}
+
+func main() {
+
+	// Initializing the fields of
+	// the student structure
+	values := student{
+		branch: "CSE",
+		year: 2010,
+		details: details{
+		
+			name: "Sumit",
+			age: 28,
+			gender: "Male",
+		},
+	}
+
+	// Promoted fields of the student structure
+	fmt.Println("Name: ", values.name)
+	fmt.Println("Age: ", values.age)
+	fmt.Println("Gender: ", values.gender)
+
+	// Normal fields of
+	// the student structure
+	fmt.Println("Year: ", values.year)
+	fmt.Println("Branch : ", values.branch)
+}
+```
+
+```
+Name:  Sumit
+Age:  28
+Gender:  Male
+Year:  2010
+Branch :  CSE
+```
+# Function as a Field in Golang Structure
+
+```go
+// Go program to illustrate the function
+// as a field in Go structure
+package main
+
+import "fmt"
+
+// Finalsalary of function type
+type Finalsalary func(int, int) int
+
+// Creating structure
+type Author struct {
+	name	 string
+	language string
+	Marticles int
+	Pay	 int
+
+	// Function as a field
+	salary Finalsalary
+}
+
+// Main method
+func main() {
+
+	// Initializing the fields
+	// of the structure
+	result := Author{
+		name:	 "Sonia",
+		language: "Java",
+		Marticles: 120,
+		Pay:	 500,
+		salary: func(Ma int, pay int) int {
+			return Ma * pay
+		},
+	}
+
+	// Display values
+	fmt.Println("Author's Name: ", result.name)
+	fmt.Println("Language: ", result.language)
+	fmt.Println("Total number of articles published in May: ", result.Marticles)
+	fmt.Println("Per article pay: ", result.Pay)
+	fmt.Println("Total salary: ", result.salary(result.Marticles, result.Pay))
+}
+
+```
+
+```
+
+Author's Name:  Sonia
+Language:  Java
+Total number of articles published in May:  120
+Per article pay:  500
+Total salary:  60000
+
+
+```
+
+# Arrays and Slice in go
+
+## Arrays
+
+1. Collection of same data types
+2. fixed length
+3. homogeneous elements in the memory
+4. Due to their fixed length array is not popular like slice in GO programming language
+
+### Creating and accessing array 
+
+var array_name[length]type
+
+var array_name[length]type{item,item,item,...}
