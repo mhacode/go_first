@@ -2405,9 +2405,221 @@ Total salary:  60000
 2. fixed length
 3. homogeneous elements in the memory
 4. Due to their fixed length array is not popular like slice in GO programming language
+5. Arrays are mutable, so that you can change elements
+6. the array type is one-dimentional
+7. allowed to store duplicate element
 
 ### Creating and accessing array 
 
 var array_name[length]type
 
 var array_name[length]type{item,item,item,...}
+
+```go
+// Go program to illustrate how to
+// create an array using the var keyword
+// and accessing the elements of the
+// array using their index value
+package main
+
+import "fmt"
+
+func main() {
+
+// Creating an array of string type
+// Using var keyword
+var myarr[3]string
+
+// Elements are assigned using index
+myarr[0] = "GFG"
+myarr[1] = "GeeksforGeeks"
+myarr[2] = "Geek"
+
+// Accessing the elements of the array
+// Using index value
+fmt.Println("Elements of Array:")
+fmt.Println("Element 1: ", myarr[0])
+fmt.Println("Element 2: ", myarr[1])
+fmt.Println("Element 3: ", myarr[2])
+}
+
+```
+
+```
+Elements of Array:
+Element 1:  GFG
+Element 2:  GeeksforGeeks
+Element 3:  Geek
+
+
+```
+
+## Multi-Dimensional Array
+
+Array_name[length1][Length2]...[Length]Type
+
+```go
+// Go program to illustrate the
+// concept of multi-dimension array
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating and initializing
+	// 2-dimensional array
+	// Using shorthand declaration
+	// Here the (,) Comma is necessary
+	arr := [3][3]string{{"C#", "C", "Python"},
+		{"Java", "Scala", "Perl"},
+		{"C++", "Go", "HTML"}}
+
+	// Accessing the values of the
+	// array Using for loop
+	fmt.Println("Elements of Array 1")
+	for x := 0; x < 3; x++ {
+		for y := 0; y < 3; y++ {
+			fmt.Println(arr[x][y])
+		}
+	}
+
+	// Creating a 2-dimensional
+	// array using var keyword
+	// and initializing a multi
+	// -dimensional array using index
+	var arr1 [2][2]int
+	arr1[0][0] = 100
+	arr1[0][1] = 200
+	arr1[1][0] = 300
+	arr1[1][1] = 400
+
+	// Accessing the values of the array
+	fmt.Println("Elements of array 2")
+	for p := 0; p < 2; p++ {
+		for q := 0; q < 2; q++ {
+			fmt.Println(arr1[p][q])
+
+		}
+	}
+}
+```
+
+```
+Elements of Array 1
+C#
+C
+Python
+Java
+Scala
+Perl
+C++
+Go
+HTML
+Elements of array 2
+100
+200
+300
+400
+
+
+
+```
+In an array if length is not specified then ellipsis is used to determined the length
+```go
+// Go program to illustrate the
+// concept of ellipsis in an array
+package main
+
+import "fmt"
+
+func main() {
+	
+// Creating an array whose size is determined
+// by the number of elements present in it
+// Using ellipsis
+myarray:= [...]string{"GFG", "gfg", "geeks",
+					"GeeksforGeeks", "GEEK"}
+
+fmt.Println("Elements of the array: ", myarray)
+
+// Length of the array
+// is determine by
+// Using len() method
+fmt.Println("Length of the array is:", len(myarray))
+}
+```
+
+```
+Elements of the array:  [GFG gfg geeks GeeksforGeeks GEEK]
+Length of the array is: 5
+```
+
+```go
+// Go program to illustrate
+// how to iterate the array
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating an array whose size
+	// is represented by the ellipsis
+	myarray := [...]int{29, 79, 49, 39,
+		20, 49, 48, 49}
+
+	// Iterate array using for loop
+	for x := 0; x < len(myarray); x++ {
+		fmt.Printf("%d\n", myarray[x])
+	}
+}
+```
+
+```
+29
+79
+49
+39
+20
+49
+48
+49
+```
+```go
+// Go program to illustrate value type array
+package main
+
+import "fmt"
+
+func main() {
+	
+	// Creating an array whose size
+	// is represented by the ellipsis
+	my_array:= [...]int{100, 200, 300, 400, 500}
+	fmt.Println("Original array(Before):", my_array)
+
+	// Creating a new variable
+	// and initialize with my_array
+	new_array := my_array
+
+	fmt.Println("New array(before):", new_array)
+
+	// Change the value at index 0 to 500
+	new_array[0] = 500
+
+	fmt.Println("New array(After):", new_array)
+
+	fmt.Println("Original array(After):", my_array)
+}
+
+```
+
+
+```
+Original array(Before): [100 200 300 400 500]
+New array(before): [100 200 300 400 500]
+New array(After): [500 200 300 400 500]
+Original array(After): [100 200 300 400 500]
+```
+
