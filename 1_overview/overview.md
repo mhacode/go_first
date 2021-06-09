@@ -2623,3 +2623,638 @@ New array(After): [500 200 300 400 500]
 Original array(After): [100 200 300 400 500]
 ```
 
+## Pass an Array to a function in go
+
+```go
+// Go program to illustrate how to pass an
+// array as an argument in the function
+package main
+
+import "fmt"
+
+// This function accept
+// an array as an argument
+func myfun(a [6]int, size int) int {
+	var k, val, r int
+
+	for k = 0; k < size; k++ {
+		val += a[k]
+	}
+
+	r = val / size
+	return r
+}
+
+// Main function
+func main() {
+
+	// Creating and initializing an array
+	var arr = [6]int{67, 59, 29, 35, 4, 34}
+	var res int
+
+	// Passing an array as an argument
+	res = myfun(arr, 6)
+	fmt.Printf("Final result is: %d ", res)
+}
+```
+
+```
+Final result is: 38
+
+```
+## Slices in Golang
+
+1. You are not allowed to store different type of element in slice
+2. But the size of the slice is resized they are not in fixed-size.
+3. Slice and array are connected with each other, a slice is a reference to an underlying array.
+4. It is allowed to store duplicate elements in the slice.
+
+```
+var mysilce []int
+```
+
+Slice contains 3 components
+	1. pointer : used to points to the first element of the array
+	2. length
+	3. Capacity
+
+```go
+// Golang program to illustrate how
+// to create a slice using a slice
+// literal
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating a slice
+	// using the var keyword
+	var my_slice_1 = []string{"Geeks", "for", "Geeks"}
+
+	fmt.Println("My Slice 1:", my_slice_1)
+
+	// Creating a slice
+	//using shorthand declaration
+	my_slice_2 := []int{12, 45, 67, 56, 43, 34, 45}
+	fmt.Println("My Slice 2:", my_slice_2)
+}
+```
+
+```
+My Slice 1: [Geeks for Geeks]
+My Slice 2: [12 45 67 56 43 34 45]
+
+```
+```go
+// Golang program to illustrate how to
+// create slices from the array
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating an array
+	arr := [4]string{"Geeks", "for", "Geeks", "GFG"}
+
+	// Creating slices from the given array
+	var my_slice_1 = arr[1:2]
+	my_slice_2 := arr[0:]
+	my_slice_3 := arr[:2]
+	my_slice_4 := arr[:]
+
+	// Display the result
+	fmt.Println("My Array: ", arr)
+	fmt.Println("My Slice 1: ", my_slice_1)
+	fmt.Println("My Slice 2: ", my_slice_2)
+	fmt.Println("My Slice 3: ", my_slice_3)
+	fmt.Println("My Slice 4: ", my_slice_4)
+}
+```
+
+```
+My Array:  [Geeks for Geeks GFG]
+My Slice 1:  [for]
+My Slice 2:  [Geeks for Geeks GFG]
+My Slice 3:  [Geeks for]
+My Slice 4:  [Geeks for Geeks GFG]
+
+
+```
+
+```go
+// Golang program to illustrate how to
+// create slices from the slice
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating s slice
+	oRignAl_slice := []int{90, 60, 40, 50,
+		34, 49, 30}
+
+	// Creating slices from the given slice
+	var my_slice_1 = oRignAl_slice[1:5]
+	my_slice_2 := oRignAl_slice[0:]
+	my_slice_3 := oRignAl_slice[:6]
+	my_slice_4 := oRignAl_slice[:]
+	my_slice_5 := my_slice_3[2:4]
+
+	// Display the result
+	fmt.Println("Original Slice:", oRignAl_slice)
+	fmt.Println("New Slice 1:", my_slice_1)
+	fmt.Println("New Slice 2:", my_slice_2)
+	fmt.Println("New Slice 3:", my_slice_3)
+	fmt.Println("New Slice 4:", my_slice_4)
+	fmt.Println("New Slice 5:", my_slice_5)
+}
+```
+
+```
+Original Slice: [90 60 40 50 34 49 30]
+New Slice 1: [60 40 50 34]
+New Slice 2: [90 60 40 50 34 49 30]
+New Slice 3: [90 60 40 50 34 49]
+New Slice 4: [90 60 40 50 34 49 30]
+New Slice 5: [40 50]
+
+```
+```go
+// Golang program to illustrate the
+// iterating over a slice using
+// for loop
+package main
+
+import "fmt"
+
+func main() {
+
+	// Creating a slice
+	myslice := []string{"This", "is", "the", "tutorial",
+		"of", "Go", "language"}
+
+	// Iterate using for loop
+	for e := 0; e < len(myslice); e++ {
+		fmt.Println(myslice[e])
+	}
+}
+```
+
+
+```
+This
+is
+the
+tutorial
+of
+Go
+language
+
+```
+
+## Coy one slice to another slice
+```go
+// Go program to illustrate how to copy
+// a slice into another slice using the
+// copy function
+package main
+
+import "fmt"
+
+// Main Method
+func main() {
+
+	// Creating slices
+	slc1 := []int{58, 69, 40, 45, 11, 56, 67, 21, 65}
+	var slc2 []int
+	slc3 := make([]int, 5)
+	slc4 := []int{78, 50, 67, 77}
+
+	// Before copying
+	fmt.Println("Slice_1:", slc1)
+	fmt.Println("Slice_2:", slc2)
+	fmt.Println("Slice_3:", slc3)
+	fmt.Println("Slice_4:", slc4)
+
+	// Copying the slices
+	copy_1 := copy(slc2, slc1)
+	fmt.Println("\nSlice:", slc2)
+	fmt.Println("Total number of elements copied:", copy_1)
+
+	copy_2 := copy(slc3, slc1)
+	fmt.Println("\nSlice:", slc3)
+	fmt.Println("Total number of elements copied:", copy_2)
+
+	copy_3 := copy(slc4, slc1)
+	fmt.Println("\nSlice:", slc4)
+	fmt.Println("Total number of elements copied:", copy_3)
+
+	// Don't confuse here, because in above
+	// line of code the slc4 has been copied
+	// and hence modified permanently i.e.
+	// slc 4 contains [58 69 40 45]
+	copy_4:= copy(slc1, slc4)
+	fmt.Println("\nSlice:", slc1)
+	fmt.Println("Total number of elements copied:", copy_4)
+	
+}
+
+```
+
+```
+Slice_1: [58 69 40 45 11 56 67 21 65]
+Slice_2: []
+Slice_3: [0 0 0 0 0]
+Slice_4: [78 50 67 77]
+
+Slice: []
+Total number of elements copied: 0
+
+Slice: [58 69 40 45 11]
+Total number of elements copied: 5
+
+Slice: [58 69 40 45]
+Total number of elements copied: 4
+
+Slice: [58 69 40 45 11 56 67 21 65]
+Total number of elements copied: 4
+```
+
+## Pass SLice to function in golang
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	slc := []string{"c", "python", "c++", "perl"}
+
+	fmt.Println(slc)
+
+	myFunc(slc)
+
+	fmt.Println(slc)
+}
+
+func myFunc(e []string) {
+	e[2] = "java"
+	//fmt.Println(e)
+}
+
+```
+```
+Initial slice:  [C# Python C Perl]
+Modified slice:  [C# Python C Perl Java]
+Final slice:  [C# Python C Perl]
+```
+
+# Compare two slice 
+
+## How to compare two slices of bytes in Golang?
+
+If the result is 0, then slice_1 == slice_2.
+If the result is -1, then slice_1 < slice_2.
+If the result is +1, then slice_1 > slice_2.
+
+```go
+// Go program to illustrate how to
+// compare two slices of bytes
+package main
+
+import (
+	"bytes"
+	"fmt"
+)
+
+// Main function
+func main() {
+
+	// Creating and initializing
+	// slices of bytes
+	// Using shorthand declaration
+
+	slice_1 := []byte{'G', 'E', 'E', 'K', 'S'}
+	slice_2 := []byte{'G', 'E', 'e', 'K', 'S'}
+
+	// Comparing slice
+	// Using Compare function
+	res := bytes.Compare(slice_1, slice_2)
+
+	if res == 0 {
+		fmt.Println("!..Slices are equal..!")
+	} else {
+		fmt.Println("!..Slice are not equal..!")
+	}
+}
+```
+
+```
+!..Slice are not equal..!
+```
+```go
+// Go program to illustrate how
+// to compare two slices of byte
+package main
+
+import (
+	"bytes"
+	"fmt"
+)
+
+func main() {
+
+	// Creating and initializing
+	// slices of bytes
+	// Using shorthand declaration
+	slice_1 := []byte{'A', 'N', 'M', 'O', 'P', 'Q'}
+	slice_2 := []byte{'a', 'g', 't', 'e', 'q', 'm'}
+	slice_3 := []byte{'A', 'N', 'M', 'O', 'P', 'Q'}
+	slice_4 := []byte{'A', 'n', 'M', 'o', 'p', 'Q'}
+
+	// Displaying slices
+	fmt.Println("Slice 1: ", slice_1)
+	fmt.Println("Slice 2: ", slice_2)
+	fmt.Println("Slice 3: ", slice_3)
+	fmt.Println("Slice 4: ", slice_4)
+
+	// Comparing slices
+	// Using Compare function
+	res1 := bytes.Compare(slice_1, slice_2)
+	res2 := bytes.Compare(slice_1, slice_3)
+	res3 := bytes.Compare(slice_1, slice_4)
+	res4 := bytes.Compare(slice_2, slice_3)
+	res5 := bytes.Compare(slice_2, slice_4)
+	res6 := bytes.Compare(slice_2, slice_1)
+	res7 := bytes.Compare(slice_3, slice_1)
+	res8 := bytes.Compare(slice_3, slice_2)
+	res9 := bytes.Compare(slice_3, slice_4)
+	res10 := bytes.Compare(slice_4, slice_1)
+	res11 := bytes.Compare(slice_4, slice_2)
+	res12 := bytes.Compare(slice_4, slice_3)
+	res13 := bytes.Compare(slice_4, slice_4)
+
+	// Displaying results
+	fmt.Println("\nResult 1:", res1)
+	fmt.Println("Result 2:", res2)
+	fmt.Println("Result 3:", res3)
+	fmt.Println("Result 4:", res4)
+	fmt.Println("Result 5:", res5)
+	fmt.Println("Result 6:", res6)
+	fmt.Println("Result 7:", res7)
+	fmt.Println("Result 8:", res8)
+	fmt.Println("Result 9:", res9)
+	fmt.Println("Result 10:", res10)
+	fmt.Println("Result 11:", res11)
+	fmt.Println("Result 12:", res12)
+	fmt.Println("Result 13:", res13)
+}
+```
+Example 2
+
+```go
+// Go program to illustrate how to
+// check the equality of the slices
+package main
+
+import (
+	"bytes"
+	"fmt"
+)
+
+func main() {
+
+	// Creating and initializing slices of bytes
+	// Using shorthand declaration
+
+	slice_1 := []byte{'A', 'N', 'M', 'A',
+					'P', 'A', 'A', 'W'}
+	
+	slice_2 := []byte{'A', 'N', 'M', 'A',
+					'P', 'A', 'A', 'W'}
+
+	// Checking the equality of the slices
+	// Using Equal function
+	res := bytes.Equal(slice_1, slice_2)
+	
+	if res == true {
+	
+		fmt.Println("Slice_1 is equal to Slice_2")
+	} else {
+	
+		fmt.Println("Slice_1 is not equal to Slice_2")
+	}
+
+}
+```
+
+```
+Slice_1 is equal to Slice_2
+```
+
+# How to sort a slice of ints in Golang?
+```go
+// Go program to illustrate how
+// to sort the slice of ints
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+// Main function
+func main() {
+	
+	// Creating and initializing slices
+	// Using shorthand declaration
+	scl1 := []int{400, 600, 100, 300, 500, 200, 900}
+	scl2 := []int{-23, 567, -34, 67, 0, 12, -5}
+	
+	// Displaying slices
+	fmt.Println("Slices(Before):")
+	fmt.Println("Slice 1: ", scl1)
+	fmt.Println("Slice 2: ", scl2)
+	
+	// Sorting the slice of ints
+	// Using Ints function
+	sort.Ints (scl1)
+	sort.Ints (scl2)
+	
+	// Displaying the result
+	fmt.Println("\nSlices(After):")
+	fmt.Println("Slice 1 : ", scl1)
+	fmt.Println("Slice 2 : ",scl2)
+}
+
+```
+
+```
+Slices(Before):
+Slice 1:  [400 600 100 300 500 200 900]
+Slice 2:  [-23 567 -34 67 0 12 -5]
+
+Slices(After):
+Slice 1 :  [100 200 300 400 500 600 900]
+Slice 2 :  [-34 -23 -5 0 12 67 567]
+
+```
+```go
+// Go program to illustrate how to check
+// whether the given slice of ints is in
+// sorted form or not
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+// Main function
+func main() {
+
+	// Creating and initializing slices
+	// Using shorthand declaration
+	scl1 := []int{100, 200, 300, 400, 500, 600, 700}
+	scl2 := []int{-23, 567, -34, 67, 0, 12, -5}
+
+	// Displaying slices
+	fmt.Println("Slices:")
+	fmt.Println("Slice 1: ", scl1)
+	fmt.Println("Slice 2: ", scl2)
+
+	// Checking the slice is in sorted form or not
+	// Using IntsAreSorted function
+	res1 := sort.IntsAreSorted(scl1)
+	res2 := sort.IntsAreSorted(scl2)
+
+	// Displaying the result
+	fmt.Println("\nResult:")
+	fmt.Println("Is Slice 1 is sorted?: ", res1)
+	fmt.Println("Is Slice 2 is sorted?: ", res2)
+}
+```
+
+```
+Slices:
+Slice 1:  [100 200 300 400 500 600 700]
+Slice 2:  [-23 567 -34 67 0 12 -5]
+
+Result:
+Is Slice 1 is sorted?:  true
+Is Slice 2 is sorted?:  false
+
+```
+
+# How to trim a slice of bytes in Golang?
+
+```go
+
+// Go program to illustrate the concept
+// of trim in the slice of bytes
+package main
+
+import (
+	"bytes"
+	"fmt"
+)
+
+func main() {
+
+	// Creating and initializing
+	// the slice of bytes
+	// Using shorthand declaration
+	slice_1 := []byte{'!', '!', 'G', 'e', 'e', 'k', 's', 'f',
+				'o', 'r', 'G', 'e', 'e', 'k', 's', '#', '#'}
+	
+	slice_2 := []byte{'*', '*', 'A', 'p', 'p', 'l', 'e', '^', '^'}
+	
+	slice_3 := []byte{'%', 'g', 'e', 'e', 'k', 's', '%'}
+
+	// Displaying slices
+	fmt.Println("Original Slice:")
+	fmt.Printf("Slice 1: %s", slice_1)
+	fmt.Printf("\nSlice 2: %s", slice_2)
+	fmt.Printf("\nSlice 3: %s", slice_3)
+
+	// Trimming specified leading
+	// and trailing Unicodes points
+	// from the given slice of bytes
+	// Using Trim function
+	res1 := bytes.Trim(slice_1, "!#")
+	res2 := bytes.Trim(slice_2, "*^")
+	res3 := bytes.Trim(slice_3, "@")
+
+	// Display the results
+	fmt.Printf("New Slice:\n")
+	fmt.Printf("\nSlice 1: %s", res1)
+	fmt.Printf("\nSlice 2: %s", res2)
+	fmt.Printf("\nSlice 3: %s", res3)
+
+}
+```	
+```
+Original Slice:
+Slice 1: !!GeeksforGeeks##
+Slice 2: **Apple^^
+Slice 3: %geeks%New Slice:
+
+Slice 1: GeeksforGeeks
+Slice 2: Apple
+Slice 3: %geeks%
+```
+
+# Split
+
+```go
+// Go program to illustrate the concept
+// of splitting a slice of bytes
+package main
+
+import (
+	"bytes"
+	"fmt"
+)
+
+func main() {
+
+	// Creating and Splitting
+	// the slice of bytes
+	// Using Split function
+	res1 := bytes.Split([]byte("****Welcome, to, GeeksforGeeks****"),
+														[]byte(","))
+	
+	res2 := bytes.Split([]byte("Learning x how x to x trim x a x slice of bytes"),
+																	[]byte("x"))
+	
+	res3 := bytes.Split([]byte("GeeksforGeeks, Geek"), []byte(""))
+	
+	res4 := bytes.Split([]byte(""), []byte(","))
+
+	// Display the results
+	fmt.Printf("Final Value:\n")
+	fmt.Printf("\nSlice 1: %s", res1)
+	fmt.Printf("\nSlice 2: %s", res2)
+	fmt.Printf("\nSlice 3: %s", res3)
+	fmt.Printf("\nSlice 4: %s", res4)
+}
+
+```
+
+
+```
+Final Value:
+
+Slice 1: [****Welcome  to  GeeksforGeeks****]
+Slice 2: [Learning   how   to   trim   a   slice of bytes]
+Slice 3: [G e e k s f o r G e e k s ,   G e e k]
+Slice 4: []
+
+
+```
+
+# Strings in Golang
+
